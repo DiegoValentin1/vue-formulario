@@ -1,182 +1,131 @@
 <template>
-  <b-container>
-    <!-- <div>
-      <b-form @submit.prevent="checkForm" action="" method="post">
-        <b-alert variant="danger" dismissible :show="errors.length > 0">
-          <b>{{
-            errors.length > 1
-              ? "Please correct the following errors:"
-              : "Please correct the following error:"
-          }}</b>
-          <ul>
-            <li v-for="error in errors" :key="error">{{ error }}</li>
-          </ul>
-        </b-alert>
-
-        <b-form-group
-          id="name-group"
-          label="Name"
-          label-for="name"
-          :state="name ? null : false"
-        >
-          <b-form-input
-            id="name"
-            v-model="name"
-            type="text"
-            name="name"
-            required
-          ></b-form-input>
-        </b-form-group>
-
-        <b-form-group
-          id="age-group"
-          label="Age"
-          label-for="age"
-          :state="age >= 0 ? null : false"
-        >
-          <b-form-input
-            id="age"
-            v-model="age"
-            type="number"
-            name="age"
-            min="0"
-            required
-          ></b-form-input>
-        </b-form-group>
-
-        <b-form-group
-          id="movie-group"
-          label="Favorite Movie"
-          label-for="movie"
-          :state="movie ? null : false"
-        >
-          <b-form-select id="movie" v-model="movie" name="movie" required>
-            <option value="Star Wars">Star Wars</option>
-            <option value="Vanilla Sky">Vanilla Sky</option>
-            <option value="Atomic Blonde">Atomic Blonde</option>
-          </b-form-select>
-        </b-form-group>
-
-        <b-button type="submit" variant="primary">Submit</b-button>
-      </b-form>
-    </div> -->
-
-    <div>
-      <b-form
-        @submit.prevent="checkForm"
-        action="https://vuejs.org/"
-        method="post"
-        novalidate
-      >
-        <b-alert variant="danger" dismissible :show="errors.length > 0">
-          <b>{{
-            errors.length > 1
-              ? "Please correct the following errors:"
-              : "Please correct the following error:"
-          }}</b>
-          <ul>
-            <li v-for="error in errors" :key="error">{{ error }}</li>
-          </ul>
-        </b-alert>
-
-        <b-form-group
-          id="name-group"
-          label="Name"
-          label-for="name"
-          :state="name ? null : false"
-        >
-          <b-form-input
-            id="name"
-            v-model="name"
-            type="text"
-            name="name"
-            required
-          ></b-form-input>
-        </b-form-group>
-
-        <b-form-group
-          id="email-group"
-          label="Email"
-          label-for="email"
-          :state="validEmail(email) ? null : false"
-        >
-          <b-form-input
-            id="email"
-            v-model="email"
-            type="email"
-            name="email"
-            required
-          ></b-form-input>
-        </b-form-group>
-
-        <b-form-group
-          id="movie-group"
-          label="Favorite Movie"
-          label-for="movie"
-          :state="movie ? null : false"
-        >
-          <b-form-select id="movie" v-model="movie" name="movie" required>
-            <option value="Star Wars">Star Wars</option>
-            <option value="Vanilla Sky">Vanilla Sky</option>
-            <option value="Atomic Blonde">Atomic Blonde</option>
-          </b-form-select>
-        </b-form-group>
-
-        <b-button type="submit" variant="primary">Submit</b-button>
-      </b-form>
-    </div>
-  </b-container>
+    <form @submit.prevent="submitForm"  style="display:flex; flex-direction:column; align-items:center">
+        <div style="display:flex; flex-direction:column; align-items:center">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" v-model="nombre" required>
+        </div>
+        <div style="display:flex; flex-direction:column; align-items:center">
+            <label for="apellidoPaterno">Apellido paterno:</label>
+            <input type="text" id="apellidoPaterno" v-model="apellidoPaterno" required>
+        </div>
+        <div style="display:flex; flex-direction:column; align-items:center">
+            <label for="apellidoMaterno">Apellido materno:</label>
+            <input type="text" id="apellidoMaterno" v-model="apellidoMaterno">
+        </div>
+        <div style="display:flex; flex-direction:column; align-items:center">
+            <label for="direccion">Dirección:</label>
+            <input type="text" id="direccion" v-model="direccion" required>
+        </div>
+        <div style="display:flex; flex-direction:column; align-items:center">
+            <label for="ciudad">Ciudad:</label>
+            <input type="text" id="ciudad" v-model="ciudad" required>
+        </div>
+        <div style="display:flex; flex-direction:column; align-items:center">
+            <label for="codigoPostal">Código Postal:</label>
+            <input type="text" id="codigoPostal" v-model="codigoPostal" required>
+        </div>
+        <div style="display:flex; flex-direction:column; align-items:center">
+            <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+            <input type="date" id="fechaNacimiento" v-model="fechaNacimiento" required>
+        </div>
+        <div style="display:flex; flex-direction:column; align-items:center">
+            <label for="correoElectronico">Correo Electrónico:</label>
+            <input type="email" id="correoElectronico" v-model="correoElectronico" required>
+        </div>
+        <div style="display:flex; flex-direction:column; align-items:center">
+            <label for="numeroTelefonico">Número Telefónico:</label>
+            <input type="tel" id="numeroTelefonico" v-model="numeroTelefonico" required>
+        </div>
+        <div style="display:flex; flex-direction:column; align-items:center">
+            <label for="fotografia">Fotografía:</label>
+            <input type="file" id="fotografia" accept="image/png" @change="handleFileUpload" required>
+        </div>
+        <button type="submit">Enviar</button>
+    </form>
 </template>
 
+<style>
+div{
+  margin-bottom: 1rem;
+  color: #f2f2f2;
+}
+input{
+  border-radius: 0.5rem;
+}
+body{
+  background-color: #333;
+}
+</style>
 
 <script>
-import Vue from "vue";
-
-export default Vue.extend({
-  data() {
-    return {
-      errors: [],
-      name: null,
-      age: null,
-      movie: null,
-    };
-  },
-  methods: {
-    checkForm: function (e) {
-      if (this.name && this.age) {
-        return true;
-      }
-
-      this.errors = [];
-
-      if (!this.name) {
-        this.errors.push("Name required.");
-      }
-      // if (!this.age) {
-      //   this.errors.push("Age required.");
-      // }
-      if (!this.email) {
-        this.errors.push("Email required.");
-      } else if (!this.validEmail(this.email)) {
-        this.errors.push("Valid email required.");
-      }
-
-      if (!this.errors.length) {
-        return true;
-      }
-
-      e.preventDefault();
+export default {
+    data() {
+        return {
+            nombre: '',
+            apellidoPaterno: '',
+            apellidoMaterno: '',
+            direccion: '',
+            ciudad: '',
+            codigoPostal: '',
+            fechaNacimiento: '',
+            correoElectronico: '',
+            numeroTelefonico: '',
+            fotografia: null,
+            errores: []
+        };
     },
+    methods: {
+        submitForm() {
+            this.errores = [];
 
-    //custom validations
-    validEmail: function (email) {
-      var re =
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      return re.test(email);
-    },
-  },
-});
+            if (this.validateForm()) {
+                console.log('Formulario válido');
+            } else {
+                console.log('Formulario inválido');
+            }
+        },
+        validateForm() {
+            if (!this.nombre || !this.apellidoPaterno || !this.direccion || !this.ciudad || !this.codigoPostal || !this.fechaNacimiento || !this.correoElectronico || !this.numeroTelefonico || !this.fotografia) {
+                this.errores.push('Faltan campos obligatorios');
+            }
+
+            const nombreRegex = /^[A-Za-z\s]+$/;
+            if (!nombreRegex.test(this.nombre)) {
+                this.errores.push('El nombre no es válido');
+            }
+            if (!nombreRegex.test(this.apellidoPaterno)) {
+                this.errores.push('El apellido paterno no es válido');
+            }
+
+            const fechaNacimiento = new Date(this.fechaNacimiento);
+            const limiteEdad = new Date();
+            limiteEdad.setFullYear(limiteEdad.getFullYear() - 18);
+            const fechaActual = new Date();
+
+            if (fechaNacimiento > fechaActual) {
+                this.errores.push('La fecha de nacimiento no puede ser futura');
+            } else if (fechaNacimiento >= limiteEdad) {
+                this.errores.push('Debes tener al menos 18 años');
+            }
+
+            const correoRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!correoRegex.test(this.correoElectronico)) {
+                this.errores.push('El correo electrónico no es válido');
+            }
+
+            if (this.numeroTelefonico.length !== 10) {
+                this.errores.push('El número telefónico debe tener 10 dígitos');
+            }
+
+            if (this.fotografia && this.fotografia.size > 3 * 1024 * 1024) {
+                this.errores.push('El tamaño de la fotografía debe ser menor a 3 MB');
+            }
+
+            return this.errores.length === 0;
+        },
+        handleFileUpload(event) {
+            this.fotografia = event.target.files[0];
+        }
+    }
+};
 </script>
-
-<style>
-</style>
